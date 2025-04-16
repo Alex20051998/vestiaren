@@ -2,7 +2,12 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <title>Zabudnutá Veštiareň</title>
+    <title>Prejdi týmito krokmi ak chceš vidieť poklad</title>
+    <script>
+        function redirectToTarot() {
+            window.location.href = 'tarot.html';
+        }
+    </script>
     <style>
         body {
             background-color: #0b0b0b;
@@ -31,9 +36,8 @@
 </head>
 <body>
     <div id="content">
-        <h1>Zabudnutá Veštiareň</h1>
+        <h1>Prejdi týmito krokmi ak chceš vidieť poklad</h1>
 
-        <!-- Úlohy -->
         <!-- Úloha 1 -->
         <div id="step1">
             <p><em>Kto by neprežil ráno bez kávy a cigy?</em></p>
@@ -44,7 +48,7 @@
 
         <!-- Úloha 2 -->
         <div id="step2" class="hidden">
-            <p><em>Len ten, kto prežil zvracanie na koberci a štekanie o polnoci, rozumie hlasu zvieraťa. Klikni na vec, ktorá mu stále padá z papule.</em></p>
+            <p><em>Len ten, kto prežil zvracanie na koberci a štekanie o polnoci, rozumie hlasu zvieraťa. Klikni na vec, ktorá Aresovi stále padá z papule.</em></p>
             <button onclick="checkAres('kost')">Kosť</button>
             <button onclick="checkAres('hracka')">Hračka</button>
             <button onclick="checkAres('vankus')">Vankúš</button>
@@ -83,12 +87,6 @@
             <button onclick="checkHaliganda()">Potvrdiť</button>
             <p id="error6" class="hidden">Nie, Kristián tam dával niečo iné...</p>
         </div>
-
-        <!-- Veštiareň -->
-        <div id="tarotRoom" class="hidden">
-            <h2>Vitaj v tarotovej veštiarni...</h2>
-            <p>Tvoj osud je pripravený. Ale pozor – nie vždy povie to, čo chceš počuť.</p>
-        </div>
     </div>
 
     <script>
@@ -101,6 +99,7 @@
                 document.getElementById('error1').classList.remove('hidden');
             }
         }
+
         function checkAres(choice) {
             if (choice === 'kost') {
                 document.getElementById('step2').classList.add('hidden');
@@ -109,6 +108,7 @@
                 document.getElementById('error2').classList.remove('hidden');
             }
         }
+
         function checkStamp() {
             const stamp = document.getElementById('stampInput').value.trim().toLowerCase();
             if (stamp === 'dole gate') {
@@ -118,6 +118,7 @@
                 document.getElementById('error3').classList.remove('hidden');
             }
         }
+
         function checkOspravedlnenie() {
             const text = document.getElementById('ospravedlnenieInput').value.trim().toLowerCase();
             if (text === 'prepáčte teta, že som hlúpa') {
@@ -127,6 +128,7 @@
                 document.getElementById('error4').classList.remove('hidden');
             }
         }
+
         function checkPiercing(choice) {
             if (choice === 'pica') {
                 document.getElementById('step5').classList.add('hidden');
@@ -135,11 +137,12 @@
                 document.getElementById('error5').classList.remove('hidden');
             }
         }
+
         function checkHaliganda() {
             const text = document.getElementById('haligandaInput').value.trim().toLowerCase();
             if (text === 'príbor') {
                 document.getElementById('step6').classList.add('hidden');
-                document.getElementById('tarotRoom').classList.remove('hidden');
+                redirectToTarot();
             } else {
                 document.getElementById('error6').classList.remove('hidden');
             }
