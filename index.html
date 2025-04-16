@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -34,6 +33,7 @@
     <div id="content">
         <h1>Zabudnutá Veštiareň</h1>
 
+        <!-- Úlohy -->
         <!-- Úloha 1 -->
         <div id="step1">
             <p><em>Kto by neprežil ráno bez kávy a cigy?</em></p>
@@ -61,10 +61,27 @@
 
         <!-- Úloha 4 -->
         <div id="step4" class="hidden">
-            <p><em>Niekedy musíš poznať vlastný hriech, aby si mohla spoznať svoj osud. Čo nikdy nevieš povedať, aj keď ťa to ničí?</em></p>
-            <input type="text" id="hriechInput" placeholder="Zadaj slovo...">
-            <button onclick="checkSin()">Potvrdiť</button>
-            <p id="error4" class="hidden">Nie, to nie je tvoj hriech...</p>
+            <p><em>Ako sa musela ospravedlniť Heňa, keď sa smiala z upchatého záchodu na Marikinej oslave?</em></p>
+            <input type="text" id="ospravedlnenieInput" placeholder="Zadaj ospravedlnenie...">
+            <button onclick="checkOspravedlnenie()">Potvrdiť</button>
+            <p id="error4" class="hidden">Zlé ospravedlnenie. Skús to ešte raz, ale úprimnejšie.</p>
+        </div>
+
+        <!-- Úloha 5 -->
+        <div id="step5" class="hidden">
+            <p><em>Na akom mieste si myslel Ľubo Suchý z Grappa baru, že má Heňa piercing?</em></p>
+            <button onclick="checkPiercing('bradavka')">Bradavka</button>
+            <button onclick="checkPiercing('pupok')">Pupok</button>
+            <button onclick="checkPiercing('pica')">Piča</button>
+            <p id="error5" class="hidden">Nie, Ľubo povedal iné miesto.</p>
+        </div>
+
+        <!-- Úloha 6 -->
+        <div id="step6" class="hidden">
+            <p><em>Čo ti vkladal Kristián do kabelky vždy po návšteve Haligandy pred mnohými rokmi?</em></p>
+            <input type="text" id="haligandaInput" placeholder="Zadaj odpoveď...">
+            <button onclick="checkHaliganda()">Potvrdiť</button>
+            <p id="error6" class="hidden">Nie, Kristián tam dával niečo iné...</p>
         </div>
 
         <!-- Veštiareň -->
@@ -84,7 +101,6 @@
                 document.getElementById('error1').classList.remove('hidden');
             }
         }
-
         function checkAres(choice) {
             if (choice === 'kost') {
                 document.getElementById('step2').classList.add('hidden');
@@ -93,7 +109,6 @@
                 document.getElementById('error2').classList.remove('hidden');
             }
         }
-
         function checkStamp() {
             const stamp = document.getElementById('stampInput').value.trim().toLowerCase();
             if (stamp === 'dole gate') {
@@ -103,14 +118,30 @@
                 document.getElementById('error3').classList.remove('hidden');
             }
         }
-
-        function checkSin() {
-            const sin = document.getElementById('hriechInput').value.trim().toLowerCase();
-            if (sin === 'nie') {
+        function checkOspravedlnenie() {
+            const text = document.getElementById('ospravedlnenieInput').value.trim().toLowerCase();
+            if (text === 'prepáčte teta, že som hlúpa') {
                 document.getElementById('step4').classList.add('hidden');
-                document.getElementById('tarotRoom').classList.remove('hidden');
+                document.getElementById('step5').classList.remove('hidden');
             } else {
                 document.getElementById('error4').classList.remove('hidden');
+            }
+        }
+        function checkPiercing(choice) {
+            if (choice === 'pica') {
+                document.getElementById('step5').classList.add('hidden');
+                document.getElementById('step6').classList.remove('hidden');
+            } else {
+                document.getElementById('error5').classList.remove('hidden');
+            }
+        }
+        function checkHaliganda() {
+            const text = document.getElementById('haligandaInput').value.trim().toLowerCase();
+            if (text === 'príbor') {
+                document.getElementById('step6').classList.add('hidden');
+                document.getElementById('tarotRoom').classList.remove('hidden');
+            } else {
+                document.getElementById('error6').classList.remove('hidden');
             }
         }
     </script>
