@@ -78,14 +78,12 @@
 <h1>Prejdi týmito krokmi ak chceš vidieť poklad</h1>
 
 <div id="content" class="active">
-  <!-- Úlohy -->
   <div id="step1">
     <p><em>Kto by neprežil ráno bez kávy a cigy?</em></p>
     <input type="text" id="menoInput">
     <button onclick="checkName()">Potvrdiť</button>
     <p id="error1" class="hidden">Zlyhávaš. Si len dym bez ohňa.</p>
   </div>
-
   <div id="step2" class="hidden">
     <p><em>Len ten, kto prežil zvracanie na koberci a štekanie o polnoci, rozumie hlasu zvieraťa. Klikni na vec, ktorá Aresovi stále padá z papule.</em></p>
     <button onclick="checkAres('kost')">Kosť</button>
@@ -93,21 +91,18 @@
     <button onclick="checkAres('vankus')">Vankúš</button>
     <p id="error2" class="hidden">Ares sa ti vysmieva. Skús znova.</p>
   </div>
-
   <div id="step3" class="hidden">
     <p><em>Čo povedal za frázu bezdomovec na glajzovke?</em></p>
     <input type="text" id="stampInput">
     <button onclick="checkStamp()">Potvrdiť</button>
     <p id="error3" class="hidden">Nie, to nie je ono. Skús znovu.</p>
   </div>
-
   <div id="step4" class="hidden">
     <p><em>Ako sa musela ospravedlniť Heňa, keď sa smiala z upchatého záchodu na Marikinej oslave?</em></p>
     <input type="text" id="ospravedlnenieInput">
     <button onclick="checkOspravedlnenie()">Potvrdiť</button>
     <p id="error4" class="hidden">Zlé ospravedlnenie. Skús to ešte raz, ale úprimnejšie.</p>
   </div>
-
   <div id="step5" class="hidden">
     <p><em>Na akom mieste si myslel Ľubo Suchý z Grappa baru, že má Heňa piercing?</em></p>
     <button onclick="checkPiercing('bradavka')">Bradavka</button>
@@ -115,7 +110,6 @@
     <button onclick="checkPiercing('pica')">Piča</button>
     <p id="error5" class="hidden">Nie, Ľubo povedal iné miesto.</p>
   </div>
-
   <div id="step6" class="hidden">
     <p><em>Čo ti vkladal Kristián do kabelky vždy po návšteve Haligandy pred mnohými rokmi?</em></p>
     <input type="text" id="haligandaInput">
@@ -124,7 +118,6 @@
   </div>
 </div>
 
-<!-- TAROTOVÁ SEKCIA -->
 <div id="tarotSection">
   <h2>Ťahaj si karty osudu</h2>
   <div class="card" onclick="flipCard()">
@@ -174,7 +167,6 @@
     document.getElementById(`step${show}`).classList.remove('hidden');
   }
 
-  // Tarot logika
   const cards = [
     { img: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_13_Death.jpg', text: 'Smrť – sem dopíšeš veštbu' },
     { img: 'https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg', text: 'Slnko – sem dopíšeš veštbu' },
@@ -199,6 +191,11 @@
     currentCard++;
     if (currentCard < cards.length) showCard(currentCard);
     else alert('Tvoj osud je spečatený.');
+  }
+
+  // Automaticky zobraz obsah po načítaní
+  window.onload = () => {
+    document.getElementById('content').classList.add('active');
   }
 </script>
 
