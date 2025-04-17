@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Prejdi týmito krokmi ak chceš vidieť poklad</title>
+  <style>
+    body {
+      background-color: #0b0b0b;
+      color: #f8f8f8;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    #content, #tarotSection {
+      display: none;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .active {
+      display: block;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .hidden {
+      display: none;
+    }
+    .card {
+      width: 200px;
+      height: 320px;
+      perspective: 1000px;
+      margin: 20px auto;
+    }
+    .inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .flipped {
+      transform: rotateY(180deg);
+    }
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border: 2px solid #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .back {
+      background-color: #1c1c1c;
+      color: #fff;
+      transform: rotateY(180deg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Prejdi týmito krokmi ak chceš vidieť poklad</h1>
+
+<div id="content" class="active">
+  <div id="step1">
+    <p><em>Kto by neprežil ráno bez kávy a cigy?</em></p>
+    <input type="text" id="menoInput">
+    <button onclick="checkName()">Potvrdiť</button>
+    <p id="error1" class="hidden">Zlyhávaš. Si len dym bez ohňa.</p>
+  </div>
+  <div id="step2" class="hidden">
+    <p><em>Len ten, kto prežil zvracanie na koberci a štekanie o polnoci, rozumie hlasu zvieraťa. Klikni na vec, ktorá Aresovi stále padá z papule.</em></p>
+    <button onclick="checkAres('kost')">Kosť</button>
+    <button onclick="checkAres('hracka')">Hračka</button>
+    <button onclick="checkAres('vankus')">Vankúš</button>
+    <p id="error2" class="hidden">Ares sa ti vysmieva. Skús znova.</p>
+  </div>
+  <div id="step3" class="hidden">
+    <p><em>Čo povedal za frázu bezdomovec na glajzovke?</em></p>
+    <input type="text" id="stampInput">
+    <button onclick="checkStamp()">Potvrdiť</button>
+    <p id="error3" class="hidden">Nie, to nie je ono. Skús znovu.</p>
+  </div>
+  <div id="step4" class="hidden">
+    <p><em>Ako sa musela ospravedlniť Heňa, keď sa smiala z upchatého záchodu na Marikinej oslave?</em></p>
+    <input type="text" id="ospravedlnenieInput">
+    <button onclick="checkOspravedlnenie()">Potvrdiť</button>
+    <p id="error4" class="hidden">Zlé ospravedlnenie. Skús to ešte raz, ale úprimnejšie.</p>
+  </div>
+  <div id="step5" class="hidden">
+    <p><em>Na akom mieste si myslel Ľubo Suchý z Grappa baru, že má Heňa piercing?</em></p>
+    <button onclick="checkPiercing('bradavka')">Bradavka</button>
+    <button onclick="checkPiercing('pupok')">Pupok</button>
+    <button onclick="checkPiercing('pica')">Piča</button>
+    <p id="error5" class="hidden">Nie, Ľubo povedal iné miesto.</p>
+  </div>
+  <div id="step6" class="hidden">
+    <p><em>Čo ti vkladal Kristián do kabelky vždy po návšteve Haligandy pred mnohými rokmi?</em></p>
+    <input type="text" id="haligandaInput">
+    <button onclick="checkHaliganda()">Potvrdiť</button>
+    <p id="error6" class="hidden">Nie, Kristián tam dával niečo iné...</p>
+  </div>
+</div>
+
+<div id="tarotSection">
+  <h2>Ťahaj si karty osudu</h2>
+  <div class="card" onclick="flipCard()">
+    <div class="inner" id="cardInner">
+      <div class="front">
+        <img id="cardImage" src="" alt="Karta">
+      </div>
+      <div class="back" id="cardText"></div>
+    </div>
+  </div>
+  <button onclick="nextCard()">Ďalšia karta</button>
+</div>
+
+<script>
+  function checkName() {
+    const meno = document.getElementById('menoInput').value.trim().toLowerCase();
+    if (meno === 'heňa') toggleStep(1, 2);
+    else document.getElementById('error1').classList.remove('hidden');
+  }
+  function checkAres(choice) {
+    if (choice === 'kost') toggleStep(2, 3);
+    else document.getElementById('error2').classList.remove('hidden');
+  }
+  function checkStamp() {
+    if (document.getElementById('stampInput').value.trim().toLowerCase() === 'dole gate') toggleStep(3, 4);
+    else document.getElementById('error3').classList.remove('hidden');
+  }
+  function checkOspravedlnenie() {
+    if (document.getElementById('ospravedlnenieInput').value.trim().toLowerCase() === 'prepáčte teta, že som hlúpa') toggleStep(4, 5);
+    else document.getElementById('error4').classList.remove('hidden');
+  }
+  function checkPiercing(choice) {
+    if (choice === 'pica') toggleStep(5, 6);
+    else document.getElementById('error5').classList.remove('hidden');
+  }
+  function checkHaliganda() {
+    if (document.getElementById('haligandaInput').value.trim().toLowerCase() === 'príbor') {
+      document.getElementById('content').classList.remove('active');
+      document.getElementById('tarotSection').classList.add('active');
+      showCard(0);
+    } else {
+      document.getElementById('error6').classList.remove('hidden');
+    }
+  }
+  function toggleStep(hide, show) {
+    document.getElementById(`step${hide}`).classList.add('hidden');
+    document.getElementById(`step${show}`).classList.remove('hidden');
+  }
+
+  const cards = [
+    { img: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_13_Death.jpg', text: 'Smrť – sem dopíšeš veštbu' },
+    { img: 'https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg', text: 'Slnko – sem dopíšeš veštbu' },
+    { img: 'https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg', text: 'Veža – sem dopíšeš veštbu' },
+    { img: 'https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg', text: 'Blázon – sem dopíšeš veštbu' },
+    { img: 'https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg', text: 'Mesiac – sem dopíšeš veštbu' },
+    { img: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg', text: '<strong>OSUDOVÁ KARTA:</strong><br>Priprav sa na cestu. Osud ti dáva znamenie.<br><br><img src="https://api.qrserver.com/v1/create-qr-code/?data=https://letenky.sk&size=150x150" alt="QR kód">' }
+  ];
+  let currentCard = 0;
+  function showCard(index) {
+    const inner = document.getElementById('cardInner');
+    const img = document.getElementById('cardImage');
+    const text = document.getElementById('cardText');
+    inner.classList.remove('flipped');
+    img.src = cards[index].img;
+    text.innerHTML = cards[index].text;
+  }
+  function flipCard() {
+    document.getElementById('cardInner').classList.toggle('flipped');
+  }
+  function nextCard() {
+    currentCard++;
+    if (currentCard < cards.length) showCard(currentCard);
+    else alert('Tvoj osud je spečatený.');
+  }
+
+  // Auto-zobrazenie prvého kroku hneď po načítaní
+  window.onload = () => {
+    document.getElementById('content').classList.add('active');
+  }
+</script>
+
+</body>
+</html>
